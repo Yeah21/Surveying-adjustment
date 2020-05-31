@@ -1,3 +1,7 @@
+% n=input('观测总数:');
+% t=input('必要观测值:');
+% f=input('已知站点:');
+% t1=input('已知站点高程:');
 clc,clear
 file='data.xlsx'; %file='data1.xlsx';
 data = xlsread(file);
@@ -16,10 +20,10 @@ B=zeros(n,t);
 l=zeros(n,1);
 H=data(:,4);
 for i = 1:n
-   x=data(i,2);%ǰ�ӵ��
-   y=data(i,3);%���ӵ��
-   h=data(i,4);%input('ǰ���ӵ�ĸ߲�:');
-   s=data(i,5);%input('ǰ���ӵ�ľ���:');
+   x=data(i,2);%前视点号
+   y=data(i,3);%后视点号
+   h=data(i,4);%input('前后视点的高差:');
+   s=data(i,5);%input('前后视点的距离:');
    S(i)=s;
    if any(f==x)
       location=find(f==x);
@@ -50,8 +54,8 @@ Q=ni;
 Q1=B*Q*B';
 m0=sqrt(v'*P*v/(n-t));
 for i = 1:length(Q)
-   fprintf('��%d�ŵ�̵߳ľ���%d\n',i,m0*sqrt(Q(i,i)))
+   fprintf('第%d号点高程的精度%d\n',i,m0*sqrt(Q(i,i)))
 end
 for i = 1:length(Q1)
-   fprintf('��%d���۲��ߵľ���%d\n',i,m0*sqrt(Q1(i,i)))
+   fprintf('第%d条观测线的精度%d\n',i,m0*sqrt(Q1(i,i)))
 end
